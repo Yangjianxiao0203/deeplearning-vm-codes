@@ -6,7 +6,7 @@ Config = {
     "max_length": 20,
     "class_num": 2,
 
-    "model_type": "bert_lstm",
+    "model_type": "bert_cnn",
     "hidden_size": 128,
     "kernel_size": 3,
     "num_layers": 2,

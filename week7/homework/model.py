@@ -33,6 +33,16 @@ class TorchModel(nn.Module):
             self.use_bert = True
             self.encoder = BertLSTM(config)
             self.hidden_size = self.encoder.bert.config.hidden_size
+        elif self.model_type == "cnn":
+            self.encoder = CNN(config)
+        elif self.model_type == "bert_cnn":
+            self.use_bert = True
+            self.encoder = BertCNN(config)
+            self.hidden_size = self.encoder.bert.config.hidden_size
+        elif self.model_type == "bert_mid_layer":
+            self.use_bert = True
+            self.encoder = BertMidLayer(config)
+            self.hidden_size = self.encoder.bert.config.hidden_size
 
         self.classify = nn.Linear(self.hidden_size,self.class_num)
 
@@ -74,6 +84,40 @@ class BertLSTM(nn.Module):
         x = self.bert(x).last_hidden_state
         x,_ = self.lstm(x)
         return x
+
+class CNN(nn.Module):
+    def __init__(self, config):
+        super(CNN, self).__init__()
+        hidden_size = config["hidden_size"]
+        kernel_size = config["kernel_size"]
+        pad = int((kernel_size - 1)/2)
+        self.cnn = nn.Conv1d(hidden_size, hidden_size, kernel_size, bias=False, padding=pad)
+
+    def forward(self, x): #x : (batch_size, max_len, embeding_size)
+        return self.cnn(x.transpose(1, 2)).transpose(1, 2)
+
+class BertCNN(nn.Module):
+    def __init__(self, config):
+        super(BertCNN, self).__init__()
+        self.bert = BertModel.from_pretrained(config["pretrain_model_path"])
+        config["hidden_size"] = self.bert.config.hidden_size
+        self.cnn = CNN(config)
+
+    def forward(self, x):
+        x = self.bert(x)[0]
+        x = self.cnn(x)
+        return x
+
+class BertMidLayer(nn.Module):
+    def __init__(self, config):
+        super(BertMidLayer, self).__init__()
+        self.bert = BertModel.from_pretrained(config["pretrain_model_path"])
+        self.bert.config.output_hidden_states = True
+
+    def forward(self, x):
+        layer_states = self.bert(x)[2]
+        layer_states = torch.add(layer_states[-2], layer_states[-1])
+        return layer_states
 
 if __name__ == "__main__":
     from config import Config

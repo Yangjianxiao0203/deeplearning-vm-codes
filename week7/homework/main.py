@@ -68,7 +68,7 @@ def main(config, verbose=True,save=False):
         acc = evaluator.eval(epoch)
         # save model
         if save and acc > acc_pre:
-            torch.save(model.state_dict(), os.path.join(config["model_path"], "epoch_%d.pth" % epoch))
+            torch.save(model.state_dict(), os.path.join(config["model_path"], config["model_type"]))
             acc_pre = acc
     return acc
 
