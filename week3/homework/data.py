@@ -41,5 +41,5 @@ def build_datasets(vocab:dict,sentence_length,size):
     return torch.LongTensor(xs),torch.LongTensor(ys)
 
 '''
-nlp model
+nlp model.py
 '''

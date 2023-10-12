@@ -130,7 +130,7 @@ def main():
         for batch in range(int(train_sample / batch_size)):
             x, y = build_dataset(batch_size, vocab, sentence_length) #构造一组训练样本
             optim.zero_grad()    #梯度归零
-            loss = model(x, y)   #计算loss  model.forward(x,y)
+            loss = model(x, y)   #计算loss  model.py.forward(x,y)
             loss.backward()      #计算梯度
             optim.step()         #更新权重
             watch_loss.append(loss.item())

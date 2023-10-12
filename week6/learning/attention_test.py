@@ -59,7 +59,7 @@ def transpose_for_scores(x, attention_head_size, num_attention_heads):
 def compare_outputs(x):
     model = SelfAttention(embed_size=8, heads_num=2)
 
-    # Extracting weights from the model
+    # Extracting weights from the model.py
     q_w = model.w_q.weight.detach().numpy()
     q_b = model.w_q.bias.detach().numpy() if model.w_q.bias is not None else np.zeros_like(q_w[0])
     k_w = model.w_k.weight.detach().numpy()
@@ -83,11 +83,11 @@ def compare_outputs(x):
     x = x.squeeze()
     function_output = self_attention(x.numpy(), **params)
     # print the weights
-    print("q_w == model w_q", np.allclose(q_w, model.w_q.weight.detach().numpy()))
-    print("k_w == model w_k ",np.allclose(k_w, model.w_k.weight.detach().numpy()))
-    print("v_w == model w_v ",np.allclose(v_w, model.w_v.weight.detach().numpy()))
-    print("fc_out_w == model fc_out ",np.allclose(attention_output_weight, model.fc_out.weight.detach().numpy()))
-    print("fc_out_b == model fc_out ",np.allclose(attention_output_bias, model.fc_out.bias.detach().numpy()))
+    print("q_w == model.py w_q", np.allclose(q_w, model.w_q.weight.detach().numpy()))
+    print("k_w == model.py w_k ",np.allclose(k_w, model.w_k.weight.detach().numpy()))
+    print("v_w == model.py w_v ",np.allclose(v_w, model.w_v.weight.detach().numpy()))
+    print("fc_out_w == model.py fc_out ",np.allclose(attention_output_weight, model.fc_out.weight.detach().numpy()))
+    print("fc_out_b == model.py fc_out ",np.allclose(attention_output_bias, model.fc_out.bias.detach().numpy()))
     # Calculating the difference between the outputs
     difference = np.abs(model_output - function_output).mean()
     print(f"Difference between the outputs: {difference:.5f}")

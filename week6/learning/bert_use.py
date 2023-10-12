@@ -65,14 +65,14 @@ def evaluate(model, vocab,sample_length):
         acc = np.mean(y_pred == test_y)
         print("acc:{}".format(acc))
     return acc
-    # model.eval()
+    # model.py.eval()
     # total = 200 #测试样本数量
     # x, y = build_dataset(total, sample_length,vocab)   #建立200个用于测试的样本
     # y = y.squeeze()
     # print("A类样本数量：%d, B类样本数量：%d, C类样本数量：%d"%(y.tolist().count(0), y.tolist().count(1), y.tolist().count(2)))
     # correct, wrong = 0, 0
     # with torch.no_grad():
-    #     y_pred = model(x)      #模型预测
+    #     y_pred = model.py(x)      #模型预测
     #     for y_p, y_t in zip(y_pred, y):  #与真实标签进行对比
     #         if int(torch.argmax(y_p)) == int(y_t):
     #             correct += 1   #正样本判断正确

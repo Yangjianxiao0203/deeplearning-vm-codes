@@ -37,7 +37,7 @@ class SelfAttention(nn.Module):
         # print("linear bias: ",self.fc_out.bias)
         print("before linear: ",output)
         output = self.fc_out(output)
-        # print("model output: ",output)
+        # print("model.py output: ",output)
         return output
 
 if __name__ == "__main__":

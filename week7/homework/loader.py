@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 from transformers import BertTokenizer
 import numpy as np
 from config import Config
-
+import torch
 
 class DataGenerator:
     def __init__(self, data_path, config):
@@ -18,12 +18,18 @@ class DataGenerator:
     def load(self):
         data = pd.read_csv(self.data_path)
         # transfrom to numpy
-        self.data = np.array(data)
+        data = data.to_numpy()
         #encode all texts
-        for i in range(len(self.data)):
-            self.data[i][1] = self.encode_sentence(self.data[i][1])
+        for i in range(len(data)):
+            data[i][1] = self.encode_sentence(data[i][1])
         # switch two columns
-        self.data = self.data[:, [1, 0]]
+        data = data[:, [1, 0]]
+        # transform to torch tensor
+        self.data = []
+        for i in range(len(data)):
+            x = torch.LongTensor(data[i][0])
+            y = torch.LongTensor([data[i][1]])
+            self.data.append([x, y])
         return
 
     def encode_sentence(self, text):
@@ -60,8 +66,8 @@ def load_data(data_path,config,shuffle=True):
     return dl
 
 if __name__ == "__main__":
-    dg = DataGenerator("./data/dataset.csv",Config)
-    for X,y in dg:
-        print(len(X))
-        print(y)
+    dl = load_data(Config["data_path"],Config)
+    for x,y in dl:
+        print(x.shape)
+        print(y.shape)
         break

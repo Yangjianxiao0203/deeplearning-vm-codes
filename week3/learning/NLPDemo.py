@@ -121,7 +121,7 @@ def main():
     learning_rate = 0.01  # 学习率
     vocab = build_vocab()
 
-    # build model
+    # build model.py
     model = NLP(char_dim, sentence_length, vocab)
     optim = torch.optim.Adam(model.parameters(), lr=learning_rate)
     loss = nn.functional.mse_loss

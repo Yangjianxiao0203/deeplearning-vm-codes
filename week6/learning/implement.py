@@ -12,7 +12,7 @@ def load_model(model_path,param_path):
     # get json
     with open(param_path, 'r') as f:
         params = json.load(f)
-    # get model
+    # get model.py
     vocab = build_vocab(params['vocab_path'])
 
     model = build_model(vocab, params['char_dim'])

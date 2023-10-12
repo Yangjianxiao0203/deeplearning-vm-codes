@@ -73,8 +73,8 @@ if __name__ == '__main__':
         acc = evaluate(model,X_test,y_test)
         log.append([acc,np.mean(watch_loss)])
     
-    torch.save(model.state_dict(),'model.pth')
-    print('model saved')
+    torch.save(model.state_dict(),'model.py.pth')
+    print('model.py saved')
     print(log)
     
     plt.plot(range(len(log)),[l[0] for l in log],label="acc")

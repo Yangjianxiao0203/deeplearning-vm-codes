@@ -1,6 +1,6 @@
 '''
 homework for week3:
-build a model with rnn to predict the sentence in a vocab
+build a model.py with rnn to predict the sentence in a vocab
 '''
 from data import build_datasets,build_vocab
 import torch

@@ -40,7 +40,7 @@ def build_datasets(vocab:dict,sentence_length,size):
     return torch.LongTensor(xs),torch.FloatTensor(ys)
 
 '''
-nlp model
+nlp model.py
 '''
 class NLP(nn.Module):
     def __init__(self,vector_dim,sentence_length,vocab):

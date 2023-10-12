@@ -68,7 +68,7 @@ def build_model(vocab,vector_dim):
     return model
 
 def evaluate(model, criterion, eval_dataset, batch_size):
-    model.eval()  # Set the model to evaluation mode
+    model.eval()  # Set the model.py to evaluation mode
     total_loss = 0
     with torch.no_grad():  # Ensure no gradients are calculated
         for i in range(0, len(eval_dataset), batch_size):
@@ -152,6 +152,6 @@ def log_result(log):
 
 
 if __name__ == "__main__":
-    # model,log = train("../data/corpus.txt")
+    # model.py,log = train("../data/corpus.txt")
     # log_result(log)
     train_all("../data/corpus")
