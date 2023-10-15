@@ -5,3 +5,10 @@
 **/*.txt
 **/*.rar
 **/*.csv
+
+#model
+./week7/homework/bert-base-chinese/
+
+#cache
+__pycache__/
+**/__pycache__/
