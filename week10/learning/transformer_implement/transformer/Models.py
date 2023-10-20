@@ -126,7 +126,26 @@ class Decoder(nn.Module):
 
 
 class Transformer(nn.Module):
-    ''' A sequence to sequence model with attention mechanism. '''
+    '''
+    A sequence to sequence model with attention mechanism.
+    @Params:
+    n_src_vocab: 源词汇表的大小。这是模型开始编码前需要知道的源语言的词汇数量。
+    n_trg_vocab: 目标词汇表的大小。这是模型在解码阶段需要知道的目标语言的词汇数量。
+    src_pad_idx: 源语言中填充（padding）符号的索引。在处理不同长度的句子时，通常会使用填充来确保输入序列的长度相同。
+    trg_pad_idx: 目标语言中填充（padding）符号的索引。
+    d_word_vec: 词嵌入的维度。即将单词转换成的向量的维度。
+    d_model: 模型中的线性层的维度。在Transformer模型中，所有的子层（例如，自注意力层和前馈神经网络）的输出维度都是d_model。
+    d_inner: 前馈神经网络内部的隐藏层的维度。
+    n_layers: Transformer模型中编码器和解码器的层数。
+    n_head: 多头注意力机制中的头数。
+    d_k: 在多头注意力中，每个头的key和query的维度。
+    d_v: 在多头注意力中，每个头的value的维度。
+    dropout: 随机失活（dropout）的比例，用于模型的正则化。
+    n_position: 可能的最大序列长度，用于位置编码。
+    trg_emb_prj_weight_sharing: 一个布尔值，指示是否在目标词嵌入和最后的线性投影层之间共享权重。
+    emb_src_trg_weight_sharing: 一个布尔值，指示是否在源和目标的词嵌入之间共享权重。
+    scale_emb_or_prj: 指定如何缩放词嵌入，'none'表示不进行缩放。
+    '''
 
     def __init__(
             self, n_src_vocab, n_trg_vocab, src_pad_idx, trg_pad_idx,
