@@ -1,5 +1,9 @@
 import torch.nn as nn
 import torch
+from Embedding import PositionalEncoding
+from Layers import EncoderLayer
+
+
 __author__ = "Jianxiao Yang"
 
 class Transformer(nn.Module):
@@ -54,6 +58,15 @@ class Encoder(nn.Module):
             scale_emb (bool, optional): Scale the embedding weights by a constant. Defaults to False. 用一个常数来缩放embedding的权重
         '''
         super(Encoder, self).__init__()
+        # word embedding
+        self.source_word_emb = nn.Embedding(n_source_vocab, d_word_vec, padding_idx=pad_idx)
+        # position embedding
+        self.position_emb = PositionalEncoding(d_word_vec, n_position=n_position)
+        # backbone * n_layers
+        self.layer_stack = nn.ModuleList([
+            EncoderLayer(d_model, d_inner, n_heads, d_k, d_v, dropout=dropout) for _ in range(n_layers)
+        ])
 
 class Decoder(nn.Module):
     def __init__(self):
+        pass

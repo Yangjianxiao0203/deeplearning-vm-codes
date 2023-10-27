@@ -5,6 +5,8 @@
 **/*.txt
 **/*.rar
 **/*.csv
+**/*.zip
+**/*.pdf
 
 #model
 ./week7/homework/bert-base-chinese/

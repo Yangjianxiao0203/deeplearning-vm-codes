@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 
-#TODO : how to compare with the real self-attention block, go to ask teacher
 class SelfAttention(nn.Module):
     def __init__(self,embed_size,heads_num):
         super(SelfAttention, self).__init__()
