@@ -74,32 +74,32 @@ def main(config, verbose=True,save=False):
 
 
 if __name__ == '__main__':
-    # main(Config, verbose=False,save=False)
-    import pandas as pd
-    #clear experiment_results.csv
-    save_path = 'experiment_results.csv'
-    # open(save_path, 'w').close()
-    columns = ['Model', 'Learning Rate', 'Hidden Size', 'Batch Size', 'Accuracy']
-    df = pd.DataFrame(columns=columns)
-    # for model in ["cnn","bert","bert_lstm","BertCNN"]:
-    for model in ["bert_lstm","BertCNN"]:
-        Config["model_type"] = model
-        for lr in [1e-4,1e-3,1e-2]:
-            Config["learning_rate"] = lr
-            for hidden_size in [128,256]:
-                Config["hidden_size"] = hidden_size
-                for batch_size in [64, 128]:
-                    Config["batch_size"] = batch_size
-                    #print current param
-                    # 记录当前配置
-                    log_msg = "Model: {}, Learning Rate: {}, Hidden Size: {}, Batch Size: {}".format(
-                        Config["model_type"], Config["learning_rate"], Config["hidden_size"], Config["batch_size"])
-                    logger.info(log_msg)
-                    accuracy = main(Config, False, True)                    
-                    # 更新DataFrame
-                    df.loc[len(df)] = [model, lr, hidden_size, batch_size, accuracy]
-                    
-                    print("最后一轮准确率：", accuracy, "当前配置：", Config)
-                    df.to_csv(save_path, index=False,mode='a',header=False)
+    main(Config, verbose=False,save=False)
+    # import pandas as pd
+    # #clear experiment_results.csv
+    # save_path = 'experiment_results.csv'
+    # # open(save_path, 'w').close()
+    # columns = ['Model', 'Learning Rate', 'Hidden Size', 'Batch Size', 'Accuracy']
+    # df = pd.DataFrame(columns=columns)
+    # # for model in ["cnn","bert","bert_lstm","BertCNN"]:
+    # for model in ["bert_lstm","BertCNN"]:
+    #     Config["model_type"] = model
+    #     for lr in [1e-4,1e-3,1e-2]:
+    #         Config["learning_rate"] = lr
+    #         for hidden_size in [128,256]:
+    #             Config["hidden_size"] = hidden_size
+    #             for batch_size in [64, 128]:
+    #                 Config["batch_size"] = batch_size
+    #                 #print current param
+    #                 # 记录当前配置
+    #                 log_msg = "Model: {}, Learning Rate: {}, Hidden Size: {}, Batch Size: {}".format(
+    #                     Config["model_type"], Config["learning_rate"], Config["hidden_size"], Config["batch_size"])
+    #                 logger.info(log_msg)
+    #                 accuracy = main(Config, False, True)
+    #                 # 更新DataFrame
+    #                 df.loc[len(df)] = [model, lr, hidden_size, batch_size, accuracy]
+    #
+    #                 print("最后一轮准确率：", accuracy, "当前配置：", Config)
+    #                 df.to_csv(save_path, index=False,mode='a',header=False)
 
     

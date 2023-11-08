@@ -5,7 +5,8 @@ from config import Config
 import random
 import numpy as np
 import torch
-from transformer.Models import Transformer
+# from transformer.Models import Transformer
+from transformer_self.Models import Transformer
 from loader import load_data,load_vocab
 from optimizer import choose_optimizer
 from evaluate import Evaluator
@@ -33,7 +34,7 @@ def main(config,save=False):
     # model = Transformer(n_src_vocab=len(vocab),n_trg_vocab = len(vocab),src_pad_idx=vocab["[PAD]"],trg_pad_idx=vocab["[PAD]"])
     model = Transformer(config["vocab_size"], config["vocab_size"], 0, 0,
                         d_word_vec=128, d_model=128, d_inner=256,
-                        n_layers=1, n_head=2, d_k=64, d_v=64,
+                        n_layers=1, n_head=2, d_k=64, d_v=64,trg_emb_prj_weight_sharing=False, emb_src_trg_weight_sharing=False
                         )
     #use cuda
     cuda_flag = torch.cuda.is_available()

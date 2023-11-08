@@ -4,7 +4,7 @@ adam : 每次的grad下降用的是前面所有的grad的差值
 
 import numpy as np
 import torch.nn as nn
-
+import torch
 
 def adam(weight,grad,t,mt,vt, alpha=1e-3,beta1=0.9,beta2=0.999,eps=1e-8):
     '''
