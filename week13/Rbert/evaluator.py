@@ -24,10 +24,10 @@ class Evaluator:
             if torch.cuda.is_available():
                 batch_data = [d.cuda() for d in batch_data]
             input_id, e1_mask, e2_mask, labels = batch_data
-            gold.append(labels.detach().tolist())
+            gold.extend(labels.detach().tolist())
             attr_pred = self.model(input_id,e1_mask,e2_mask)
             attr_pred = torch.argmax(attr_pred,dim=-1)
-            pred.append(attr_pred.detach().tolist())
+            pred.extend(attr_pred.detach().tolist())
         report = classification_report(np.array(gold), np.array(pred)).rstrip().split("\n")
         self.logger.info(report[0])
         self.logger.info(report[-1])

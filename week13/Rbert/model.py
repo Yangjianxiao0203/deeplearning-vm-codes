@@ -1,7 +1,18 @@
 import torch
 import torch.nn as nn
 from torch.optim import Adam, SGD
-from transformers import BertModel
+from transformers import BertModel,BertConfig
+import json
+
+def load_bert(pretrain_path, config_path=None):
+    if config_path is None:
+        model = BertModel.from_pretrained(pretrain_path)
+        return model
+    with open(config_path) as f:
+        config_dict = json.load(f)
+    custom_config = BertConfig(**config_dict)
+    model = BertModel.from_pretrained(pretrain_path, config=custom_config)
+    return model
 
 class Rbert(nn.Module):
     def __init__(self,config,logger):
@@ -11,7 +22,7 @@ class Rbert(nn.Module):
         super(Rbert,self).__init__()
         self.config = config
         self.logger = logger
-        self.encoder = BertModel.from_pretrained(config['bert_path'])
+        self.encoder = load_bert(config['bert_path'],config['bert_config_path'])
         self.hidden_size = self.encoder.config.hidden_size
         self.dropout = nn.Dropout(config['dropout'])
 

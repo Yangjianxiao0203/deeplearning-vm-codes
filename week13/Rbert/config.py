@@ -1,21 +1,22 @@
-data_dir = "../triplet_data/"
+data_dir = "./s3/data/Rbert/"
 Config = {
     "data_path": data_dir + "triplet_data.json",
     "train_path": data_dir+"train_triplet_data.json",
     "valid_path": data_dir + "valid_triplet_data.json",
-    "vocab_path" : "chars.txt",
+    "vocab_path" : data_dir + "chars.txt",
     "schema_path": "schema.json",
     "bert_path": "bert-base-chinese",
-    "model_output": "model_output",
+    "bert_config_path": "bert_config.json",
+    "model_path": "model_output",
 
-    "max_length": 200,
+    "max_length": 100,
     "batch_size":32,
     "hidden_size":256,
-    "lr":1e-4,
+    "lr":5e-5,
     "optimizer":"adam",
     "dropout":0.1,
 
     "epoch": 15,
 
-    "Debug":True,
+    "Debug":False,
 }
